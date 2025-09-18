@@ -27,3 +27,7 @@ args = "gcc atvd_lava_jato.c -o lava_jato && ./lava_jato"
 
 [workflows.workflow.metadata]
 outputType = "console"
+
+[deployment]
+deploymentTarget = "vm"
+run = ["bash", "-c", "gcc atvd_lava_jato.c -o lava_jato && ./lava_jato"]
