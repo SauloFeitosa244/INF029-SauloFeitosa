@@ -1,4 +1,3 @@
-//CRUD = Creat, Read, Update, Delete
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -11,6 +10,9 @@ typedef struct{
 
 int main(){
     
+    void menu();
+    void listar_carros(Carro carros[], int qtdCarros);
+    
     Carro carros[TAM];
     int opcao;
     int carrosCont = 0;
@@ -18,12 +20,7 @@ int main(){
     bool sair = false;
     
     while(!sair){
-        printf("\n------- MENU -------\n");
-        printf("0 - Sair\n");
-        printf("1 - Adicionar carro\n");
-        printf("2 - Listar carros\n");
-        printf("3 - Atualizar carro\n");
-        printf("4 - Remover carro\n");
+        menu();
         scanf("%d", &opcao);
         
         switch(opcao){
@@ -60,9 +57,7 @@ int main(){
                     break;
                 }
                 else{
-                    for(int i = 0; i < qtdCarros; i++){
-                        printf("Carro %d - Ano: %d || N. Chassi: %d\n", i+1, carros[i].ano, carros[i].chassi);
-                    }
+                    listar_carros(carros, qtdCarros);
                 break;
                 }
             case 3:
@@ -71,16 +66,20 @@ int main(){
                     break;
                 }
                 else{
-                for(int i = 0; i < qtdCarros; i++){
-                        printf("Carro %d - Ano: %d || N. Chassi: %d\n", i+1, carros[i].ano, carros[i].chassi);
+                    listar_carros(carros, qtdCarros);
+                    printf("Digite o número do carro que deseja atualizar: ");
+                    scanf("%d", &opcao);
+                    if(opcao <= qtdCarros){
+                    printf("Ano: ");
+                    scanf("%d", &carros[opcao-1].ano);
+                    printf("Número do chassi: ");
+                    scanf("%d", &carros[opcao-1].chassi);
+                    break;
                     }
-                printf("Digite o número do carro que deseja atualizar: ");
-                scanf("%d", &opcao);
-                printf("Ano: ");
-                scanf("%d", &carros[opcao-1].ano);
-                printf("Número do chassi: ");
-                scanf("%d", &carros[opcao-1].chassi);
-                break;
+                    else{
+                        printf("\nNúmero inválido;");
+                        break;
+                    }
                 }
             case 4:
                 if(qtdCarros <= 0){
@@ -88,9 +87,7 @@ int main(){
                     break;
                 }
                 else{
-                for(int i = 0; i < qtdCarros; i++)
-                        printf("Carro %d - Ano: %d || N. Chassi: %d\n", i+1, carros[i].ano, carros[i].chassi);
-                
+                listar_carros(carros, qtdCarros);
                 printf("Digite o número do carro para deletar: ");
                 scanf("%d", &opcao);
 
@@ -112,4 +109,20 @@ int main(){
     }
   
     return 0;
+}
+
+
+void menu(){
+    printf("\n------- MENU -------\n");
+    printf("0 - Sair\n");
+    printf("1 - Adicionar carro\n");
+    printf("2 - Listar carros\n");
+    printf("3 - Atualizar carro\n");
+    printf("4 - Remover carro\n");
+}
+
+void listar_carros(Carro carros[], int qtdCarros){
+    for(int i = 0; i < qtdCarros; i++)
+        printf("Carro %d - Ano: %d || N. Chassi: %d\n", i+1, carros[i].ano, carros[i].chassi);
+    
 }
