@@ -10,10 +10,10 @@
 //  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
 
 //  ----- Dados do Aluno -----
-//  Nome:
-//  email:
-//  Matrícula:
-//  Semestre:
+//  Nome:Saulo Teixeira Cardoso Feitosa
+//  email:saulotcfeitosa@gmail.com
+//  Matrícula:20242160012
+//  Semestre:2025.2
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
 // Última atualização: 07/05/2021 - 19/08/2016 - 17/10/2025
@@ -91,17 +91,29 @@ int teste(int a)
  */
 int q1(char data[])
 {
-  int datavalida = 1;
+    DataQuebrada dq = quebraData(data);
 
-  //quebrar a string data em strings sDia, sMes, sAno
+   if(dq.valido == 0) return 0;
 
+   if(dq.iAno < 0) return 0;
+   if(dq.iMes < 1 || dq.iMes > 12) return 0;
+   if(dq.iDia < 1 || dq.iDia > 31) return 0;
 
-  //printf("%s\n", data);
+   if(dq.iMes == 4 || dq.iMes == 6 || dq.iMes == 9 || dq.iMes == 11) {
+      if(dq.iDia > 30) return 0;
+   }
 
-  if (datavalida)
-      return 1;
-  else
-      return 0;
+   if(dq.iMes == 2) {
+      int bissexto = 0;
+      if((dq.iAno % 4 == 0 && dq.iAno % 100 != 0) || (dq.iAno % 400 == 0)) bissexto = 1;
+      if(bissexto) {
+         if(dq.iDia > 29) return 0;
+      } else {
+         if(dq.iDia > 28) return 0;
+      }
+   }
+
+   return 1;
 }
 
 
