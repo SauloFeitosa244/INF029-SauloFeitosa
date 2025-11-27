@@ -21,7 +21,7 @@
 // #################################################
 
 #include <stdio.h>
-#include "SauloFeitosa-20242160012-T1.h" 
+#include "trabalho1.h" 
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
