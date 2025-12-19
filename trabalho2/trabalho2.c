@@ -12,7 +12,7 @@ typedef struct {
 
 EstruturaAux estruturas[TAM];
 
-int ehPosicaoValida(int posicao) {
+int PosicaoValida(int posicao) {
     if (posicao < 1 || posicao > 10)
         return POSICAO_INVALIDA;
     return SUCESSO;
@@ -34,7 +34,7 @@ void finalizar() {
 }
 
 int criarEstruturaAuxiliar(int posicao, int tamanho) {
-    if (ehPosicaoValida(posicao) != SUCESSO)
+    if (PosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
     if (tamanho < 1)
@@ -55,7 +55,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
 }
 
 int inserirNumeroEmEstrutura(int posicao, int valor) {
-    if (ehPosicaoValida(posicao) != SUCESSO)
+    if (PosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
@@ -71,7 +71,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
 }
 
 int excluirNumeroDoFinaldaEstrutura(int posicao) {
-    if (ehPosicaoValida(posicao) != SUCESSO)
+    if (PosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
@@ -87,7 +87,7 @@ int excluirNumeroDoFinaldaEstrutura(int posicao) {
 }
 
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
-    if (ehPosicaoValida(posicao) != SUCESSO)
+    if (PosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
@@ -115,7 +115,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
 }
 
 int getQuantidadeElementosEstruturaAuxiliar(int posicao) {
-    if (ehPosicaoValida(posicao) != SUCESSO)
+    if (PosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
