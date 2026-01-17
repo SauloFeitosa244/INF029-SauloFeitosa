@@ -1,3 +1,6 @@
 https://github.com/SauloFeitosa244/INF029-SauloFeitosa/blob/main/trabalho1/trabalho1.c
 https://github.com/SauloFeitosa244/INF029-SauloFeitosa/blob/main/trabalho1/trabalho1.h
 https://github.com/SauloFeitosa244/INF029-SauloFeitosa/blob/main/trabalho1/corretor-final.c
+https://github.com/SauloFeitosa244/INF029-SauloFeitosa/blob/main/trabalho2/mainTeste.c
+https://github.com/SauloFeitosa244/INF029-SauloFeitosa/blob/main/trabalho2/trabalho2.c
+https://github.com/SauloFeitosa244/INF029-SauloFeitosa/blob/main/trabalho2/trabalho2.h
