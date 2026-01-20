@@ -36,12 +36,10 @@ void finalizar() {
 int criarEstruturaAuxiliar(int posicao, int tamanho) {
     if (PosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
-
     if (tamanho < 1)
         return TAMANHO_INVALIDO;
 
     EstruturaAux *e = &estruturas[posicao - 1];
-
     if (e->dados != NULL)
         return JA_TEM_ESTRUTURA_AUXILIAR;
 
@@ -59,10 +57,8 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
-
     if (!e->dados)
         return SEM_ESTRUTURA_AUXILIAR;
-
     if (e->qtd >= e->tamanho)
         return SEM_ESPACO;
 
@@ -75,10 +71,8 @@ int excluirNumeroDoFinaldaEstrutura(int posicao) {
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
-
     if (!e->dados)
         return SEM_ESTRUTURA_AUXILIAR;
-
     if (e->qtd == 0)
         return ESTRUTURA_AUXILIAR_VAZIA;
 
@@ -91,18 +85,15 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
-
     if (!e->dados)
         return SEM_ESTRUTURA_AUXILIAR;
-
     if (e->qtd == 0)
         return ESTRUTURA_AUXILIAR_VAZIA;
 
     int i;
-    for (i = 0; i < e->qtd; i++) {
+    for (i = 0; i < e->qtd; i++)
         if (e->dados[i] == valor)
             break;
-    }
 
     if (i == e->qtd)
         return NUMERO_INEXISTENTE;
@@ -119,10 +110,8 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao) {
         return POSICAO_INVALIDA;
 
     EstruturaAux *e = &estruturas[posicao - 1];
-
     if (!e->dados)
         return SEM_ESTRUTURA_AUXILIAR;
-
     if (e->qtd == 0)
         return ESTRUTURA_AUXILIAR_VAZIA;
 
@@ -156,6 +145,110 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
             }
 
     return SUCESSO;
+}
+
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
+    int k = 0;
+    int tem = 0;
+
+    for (int i = 0; i < TAM; i++) {
+        if (estruturas[i].dados && estruturas[i].qtd > 0) {
+            tem = 1;
+            for (int j = 0; j < estruturas[i].qtd; j++)
+                vetorAux[k++] = estruturas[i].dados[j];
+        }
+    }
+
+    if (!tem)
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+
+    return SUCESSO;
+}
+
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
+    int ret = getDadosDeTodasEstruturasAuxiliares(vetorAux);
+    if (ret != SUCESSO)
+        return ret;
+
+    int total = 0;
+    for (int i = 0; i < TAM; i++)
+        if (estruturas[i].dados)
+            total += estruturas[i].qtd;
+
+    for (int i = 0; i < total - 1; i++)
+        for (int j = i + 1; j < total; j++)
+            if (vetorAux[i] > vetorAux[j]) {
+                int tmp = vetorAux[i];
+                vetorAux[i] = vetorAux[j];
+                vetorAux[j] = tmp;
+            }
+
+    return SUCESSO;
+}
+
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
+    if (PosicaoValida(posicao) != SUCESSO)
+        return POSICAO_INVALIDA;
+
+    EstruturaAux *e = &estruturas[posicao - 1];
+    if (!e->dados)
+        return SEM_ESTRUTURA_AUXILIAR;
+
+    if (novoTamanho < 0 && e->tamanho + novoTamanho < 1)
+        return NOVO_TAMANHO_INVALIDO;
+
+    int novo = e->tamanho + novoTamanho;
+    int *novoVetor = realloc(e->dados, sizeof(int) * novo);
+    if (!novoVetor)
+        return SEM_ESPACO_DE_MEMORIA;
+
+    e->dados = novoVetor;
+    e->tamanho = novo;
+    if (e->qtd > novo)
+        e->qtd = novo;
+
+    return SUCESSO;
+}
+
+No *montarListaEncadeadaComCabecote() {
+    No *cab = malloc(sizeof(No));
+    cab->prox = NULL;
+
+    No *atual = cab;
+
+    for (int i = 0; i < TAM; i++) {
+        if (estruturas[i].dados) {
+            for (int j = 0; j < estruturas[i].qtd; j++) {
+                No *novo = malloc(sizeof(No));
+                novo->conteudo = estruturas[i].dados[j];
+                novo->prox = NULL;
+                atual->prox = novo;
+                atual = novo;
+            }
+        }
+    }
+
+    return cab;
+}
+
+void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
+    int i = 0;
+    No *aux = inicio->prox;
+
+    while (aux) {
+        vetorAux[i++] = aux->conteudo;
+        aux = aux->prox;
+    }
+}
+
+void destruirListaEncadeadaComCabecote(No **inicio) {
+    No *aux = *inicio;
+    while (aux) {
+        No *tmp = aux;
+        aux = aux->prox;
+        free(tmp);
+    }
+    *inicio = NULL;
 }
 
 void dobrar(int *x) {
